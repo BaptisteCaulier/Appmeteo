@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Projetmeteo</string>
+    <string name="tri_par_pays">Tri par pays</string>
+    <string name="tri_par_ville">Tri par ville</string>
+    <string name="favoris">Favoris</string>
+    <string name="ma_position">Ma position</string>
+</resources>
