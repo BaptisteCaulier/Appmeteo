@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.Arrays;
 import java.util.Vector;
 
 public class MainActivity extends AppCompatActivity {
@@ -64,6 +65,83 @@ public class MainActivity extends AppCompatActivity {
             {
                 //On affiche l'item cliqué
                 Toast.makeText(MainActivity.this, String.valueOf(items.get(i)), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //action quand on clique sur le bouton tri par ville
+        ville.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                //on efface la liste
+                villesListView.setAdapter(null);
+                items.clear();
+                villesListView.setAdapter(villesArrayAdapter);
+
+                //on copie le tableau dans un tableau temporaire
+                String[] copy = tableauvilles.clone();
+                Arrays.sort(copy);
+
+                //on crée un tableau pour les clés
+                int[] keys = new int[copy.length];
+
+                for (int i = 0; i < copy.length; i++)
+                {
+                    int j = 0;
+                    //on boucle sur le tableau des villes et on ajoute la valeur de la ville quand la clé est la même
+                    while (!copy[i].equals(tableauvilles[j]))
+                    {
+                        j++;
+                    }
+                    keys[i] = j;
+                }
+
+                //on affiche la liste triée
+                for (int i = 0; i < tableauvilles.length; i++)
+                {
+                    items.add(copy[i] + ", " + tableaupays[keys[i]]);
+                }
+            }
+        });
+
+        //action quand on clique sur le bouton tri par pays
+        pays.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                //on efface la liste
+                villesListView.setAdapter(null);
+                items.clear();
+                villesListView.setAdapter(villesArrayAdapter);
+
+                //on copie le tableau dans un tableau temporaire
+                String[] copy = tableaupays.clone();
+                Arrays.sort(copy);
+
+                String[] tmp = tableaupays.clone();
+
+                //on crée un tableau pour les clés
+                int[] keys = new int[copy.length];
+
+                for (int i = 0; i < copy.length; i++)
+                {
+                    int j = 0;
+                    //on boucle sur le tableau des pays et on ajoute la valeur du pays quand la clé est la même
+                    while (!copy[i].equals(tmp[j]))
+                    {
+                        j++;
+                    }
+                    keys[i] = j;
+                    //on met la valeur done quand on a fini le pays pour éviter les doubles
+                    tmp[j] = "done";
+                }
+
+                //on affiche la liste triée
+                for (int i = 0; i < tableaupays.length; i++)
+                {
+                    items.add(copy[i] + ", " + tableauvilles[keys[i]]);
+                }
             }
         });
     }
