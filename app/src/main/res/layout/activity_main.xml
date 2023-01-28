@@ -20,7 +20,7 @@
         app:layout_constraintLeft_toLeftOf="parent" />
 
     <Button
-        android:id="@+id/pays"
+        android:id="@+id/country"
         android:layout_width="0dp"
         android:layout_height="100dp"
         android:layout_marginTop="10dp"
@@ -28,23 +28,23 @@
         android:text="@string/tri_par_pays"
         android:textSize="13sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/favoris"
+        app:layout_constraintTop_toBottomOf="@id/favorites"
         app:layout_constraintWidth_percent="0.4" />
 
     <Button
-        android:id="@+id/ville"
+        android:id="@+id/city"
         android:layout_width="0dp"
         android:layout_height="100dp"
         android:layout_marginTop="10dp"
         android:layout_marginStart="15dp"
         android:text="@string/tri_par_ville"
         android:textSize="13sp"
-        app:layout_constraintLeft_toRightOf="@id/pays"
-        app:layout_constraintTop_toBottomOf="@id/position"
+        app:layout_constraintLeft_toRightOf="@id/country"
+        app:layout_constraintTop_toBottomOf="@id/location"
         app:layout_constraintWidth_percent="0.4" />
 
     <Button
-        android:id="@+id/favoris"
+        android:id="@+id/favorites"
         android:layout_width="0dp"
         android:layout_height="100dp"
         android:layout_marginTop="15dp"
@@ -56,14 +56,14 @@
         app:layout_constraintWidth_percent="0.4" />
 
     <Button
-        android:id="@+id/position"
+        android:id="@+id/location"
         android:layout_width="0dp"
         android:layout_height="100dp"
         android:layout_marginTop="15dp"
         android:layout_marginStart="15dp"
         android:text="@string/ma_position"
         android:textSize="13sp"
-        app:layout_constraintLeft_toRightOf="@id/favoris"
+        app:layout_constraintLeft_toRightOf="@id/favorites"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.4" />
 
