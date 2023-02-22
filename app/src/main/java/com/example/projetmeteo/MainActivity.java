@@ -28,9 +28,9 @@ public class MainActivity extends AppCompatActivity
     private ArrayAdapter citiesArrayAdapter;
 
     //tableaux pour les pays, etats et villes
-    String[] countries = {"France", "Germany", "USA", "Cyprus", "Spain", "Argentina", "Australia", "Canada", "Cyprus", "Germany", "United Kingdom", "France", "Japan", "China", "Mexico", "Germany", "United Kingdom", "USA", "Spain", "Poland", "Turkey", "Luxembourg", "France", "Cyprus", "South Africa", "Slovenia", "Croatia", "India", "South Korea", "USA", "Australia", "Canada", "Japan", "China", "India", "South Korea"};
-    String[] states = {"Ile-de-France", "Berlin", "California", "Larnaka", "Madrid", "Buenos Aires", "Queensland", "Alberta", "Nicosia", "Bavaria", "England", "Hauts-de-France", "Tokyo", "Beijing", "Mexico City", "Bremen", "Scotland", "New York", "Valencia", "Lublin", "Antalya", "Diekirch", "Nouvelle-Aquitaine", "Pafos", "Limpopo", "Dolenjska", "Zagreb", "Delhi", "Seoul", "Texas", "Victoria", "Quebec", "Akita", "Fujian", "Haryana", "Daegu"};
-    String[] cities = {"Paris", "Berlin", "Los Angeles", "Larnaca", "Madrid", "Buenos Aires", "Brisbane", "Brooks", "Nicosia", "Munich", "London", "Calais", "Tokyo", "Beijing", "Mexico City", "Bremen", "Edinburgh", "New York City", "Valencia", "Lublin", "Antalya", "Diekirch", "Bordeaux", "Paphos", "Lephalale", "Kromberk", "Zagreb", "Delhi", "Seoul", "Dallas", "Melbourne", "Montreal", "Hiyama", "Ximei", "Palwal", "Daegu"};
+    String[] countries = {"France", "Germany", "USA", "Spain", "Australia", "Canada", "Cyprus", "Germany", "United Kingdom", "France", "Japan", "China", "Mexico", "Germany", "United Kingdom", "USA", "Spain", "Poland", "Turkey", "Luxembourg", "France", "Cyprus", "South Africa", "Slovenia", "Croatia", "India", "South Korea", "USA", "Australia", "Canada", "Japan", "China", "India", "South Korea"};
+    String[] states = {"Ile-de-France", "Berlin", "California", "Madrid", "Queensland", "Alberta", "Nicosia", "Bavaria", "England", "Hauts-de-France", "Tokyo", "Beijing", "Mexico City", "Bremen", "Scotland", "New York", "Valencia", "Lublin", "Antalya", "Diekirch", "Nouvelle-Aquitaine", "Pafos", "Limpopo", "Dolenjska", "Zagreb", "Delhi", "Seoul", "Texas", "Victoria", "Quebec", "Akita", "Fujian", "Haryana", "Daegu"};
+    String[] cities = {"Paris", "Berlin", "Los Angeles", "Madrid", "Brisbane", "Brooks", "Nicosia", "Munich", "London", "Calais", "Tokyo", "Beijing", "Mexico City", "Bremen", "Edinburgh", "New York City", "Valencia", "Lublin", "Antalya", "Diekirch", "Bordeaux", "Paphos", "Lephalale", "Kromberk", "Zagreb", "Delhi", "Seoul", "Dallas", "Melbourne", "Montreal", "Hiyama", "Ximei", "Palwal", "Daegu"};
 
     public void showToast(final String toast)
     {
@@ -59,6 +59,23 @@ public class MainActivity extends AppCompatActivity
         this.citiesListView = findViewById(R.id.listView);
         this.citiesArrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, items);
         citiesListView.setAdapter(citiesArrayAdapter);
+
+        //insertion des villes dans la table favoris
+        Executors.newSingleThreadExecutor().execute(() ->
+        {
+            FavoritesDao favoritesDao = MyDatabase.getDatabase(MainActivity.this).favoritesDao();
+            List<Favorites> favoritesList = favoritesDao.getAll(0);
+            //on vérifie que les villes ne sont pas dans la table
+            if (favoritesList.isEmpty())
+            {
+                for (int i = 0; i < cities.length; i++)
+                {
+                    //on insère les villes dans la table favoris
+                    favoritesDao.insert(new Favorites(null,cities[i],0));
+                }
+            }
+            runOnUiThread(() -> citiesArrayAdapter.notifyDataSetChanged());
+        });
     }
 
     @Override
@@ -208,7 +225,7 @@ public class MainActivity extends AppCompatActivity
                     List<Favorites> temp = favoritesDao.getAll(1);
                     if (temp.isEmpty())
                     {
-                        showToast("No favorites ! Add a city to favorites by holding it in the list");
+                        showToast("Pas de favoris, rester appuyé sur une ville pour l'ajouter aux favoris");
                     }
                     else
                     {
