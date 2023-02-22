@@ -9,19 +9,19 @@ import java.util.List;
 @Dao
 public interface FavoritesDao
 {
-    //query to insert a favorite city in the database
+    //insertion d'un favori
     @Insert
     void insert(Favorites... favorites);
 
-    //query to put a city as favorite or not in the database
+    //mise à jour d'un favori
     @Query("UPDATE favorites SET favorites = :favorites WHERE city = :city")
     void update_favorites(String city, Integer favorites);
 
-    //query to select all the favorites cities
+    //sélection des favoris
     @Query("SELECT city FROM favorites WHERE favorites = :favorites")
     List<Favorites> getAll(Integer favorites);
 
-    //query to see if a particular city is a favorite city
+    //sélection d'une ville favori
     @Query("SELECT favorites FROM favorites WHERE city = :city")
     Integer getFavorite(String city);
 

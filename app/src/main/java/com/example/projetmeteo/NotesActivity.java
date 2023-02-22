@@ -18,7 +18,7 @@ import java.util.concurrent.Executors;
 
 public class NotesActivity extends AppCompatActivity
 {
-    //declaring the variables
+    //déclaration des variables
     private List<String> items = new Vector();
     private List<Notes> temp = new Vector();
     private ListView listView_notes;
@@ -34,8 +34,7 @@ public class NotesActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.notes);
 
-        //affecting the id of the listview to the variable and adapt it to display a simple list item
-        //we also set the color for the background and make all the things invisible for the moment
+        //affectation des id aux variables et couleurs des boutons
         this.listView_notes = findViewById(R.id.notes);
         listView_notes.setVisibility(View.INVISIBLE);
         listView_notes.setBackgroundColor(0X80FFFFFF);
@@ -62,19 +61,16 @@ public class NotesActivity extends AppCompatActivity
 
         Executors.newSingleThreadExecutor().execute(() ->
         {
-            //here we get all the notes for the selected city
+            //récupération des notes
             NotesDao notesDao = MyDatabase.getDatabase(this).notesDao();
             temp = notesDao.getAll(city);
-            //if there is at least one note, we display its title
-            if (temp.size()>0)
-            {
+            //affichage des notes
+            if (temp.size()>0) {
                 listView_notes.setVisibility(View.VISIBLE);
-                for (int i = 0; i < temp.size(); i++)
-                {
+                for (int i = 0; i < temp.size(); i++) {
                     items.add(temp.get(i).getTitle());
                 }
             }
-            //if there is no notes, we display a message to inform the user
             else
             {
                textView_notes.setVisibility(View.VISIBLE);
@@ -82,20 +78,19 @@ public class NotesActivity extends AppCompatActivity
             runOnUiThread(() -> arrayAdapter_notes.notifyDataSetChanged());
         });
 
-        //action when one item from the listview is chosen
+        //action quand on clique sur un item
         listView_notes.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
             {
                 Intent intent = new Intent(NotesActivity.this, NotesEditActivity.class);
-                //here we get the item clicked in parameters
                 intent.putExtra("note", String.valueOf(temp.get(i)));
                 startActivity(intent);
             }
         });
 
-        //here the home button send the user to the main page
+        //bouton accueil
         button_home.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -106,14 +101,13 @@ public class NotesActivity extends AppCompatActivity
             }
         });
 
-        //here the new note button add a new note in the database for the city
+        //ajout d'une note
         button_new.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
                 Intent intent = new Intent(NotesActivity.this, NotesEditActivity.class);
-                //here we get the item clicked in parameters
                 intent.putExtra("city", city);
                 startActivity(intent);
             }

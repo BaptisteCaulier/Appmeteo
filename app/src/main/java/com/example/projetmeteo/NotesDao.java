@@ -12,19 +12,19 @@ import java.util.List;
 @Dao
 public interface NotesDao
 {
-    //query to insert a note in the database
+    //insertion d'une note
     @Insert
     void insert(Notes... notes);
 
-    //query to update an existing note in the database
+    //mise à jour d'une note
     @Query("UPDATE notes SET title = :title, text = :text WHERE id = :id")
     void update(int id, String title, String text);
 
-    //query to delete a note
+    //suppression d'une note
     @Query("DELETE FROM notes WHERE id = :id")
     void delete(int id);
 
-    //query to select all the notes for a particular city
+    //sélection des notes d'une ville
     @Query("SELECT * FROM notes WHERE city = :city")
     List<Notes> getAll(String city);
 }

@@ -14,7 +14,7 @@ import java.util.concurrent.Executors;
 
 public class NotesEditActivity extends AppCompatActivity
 {
-    //declaring the variables
+    //declaration des variables
     private EditText editText_title;
     private EditText editText_text;
     private Button button_save;
@@ -32,7 +32,7 @@ public class NotesEditActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.notes_edit);
 
-        //affecting the ids to the variables and set the background color
+        //affectation des id aux variables et couleurs des boutons
         this.editText_title = findViewById(R.id.title);
         this.editText_text = findViewById(R.id.text);
         this.button_save = findViewById(R.id.save);
@@ -44,12 +44,12 @@ public class NotesEditActivity extends AppCompatActivity
 
         Intent intent = getIntent();
         this.note = intent.getStringExtra("note");
-        //here if note is null, it means that the user clicked on new note, so we only get the selected city
+        //on regarde si il y a un note
         if (note==null)
         {
             this.city = intent.getStringExtra("city");
         }
-        //if it's not null, it means that the user clicked on an existing note, so we affect the different parts of the note to the variables
+        //recuperation des informations de la note
         else
         {
             String id_temp = note.substring(note.indexOf("id="),note.indexOf(", city"));
@@ -71,86 +71,79 @@ public class NotesEditActivity extends AppCompatActivity
     {
         super.onResume();
 
-        //here we display the title and text if it's an existing note
+        //affichage
         if (note!=null)
         {
             editText_title.setText(title);
             editText_text.setText(text);
         }
 
-        //the back button sends the user to pages with the notes
+        //bouton retour en arriere
         button_back.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
                 Intent intent = new Intent(NotesEditActivity.this, NotesActivity.class);
-                //here we get the item clicked in parameters
                 intent.putExtra("city", city);
                 startActivity(intent);
             }
         });
 
-        //the delete button deletes the notes for the city in the database
+        //suppresion d'une note
         button_delete.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                //if the note is already created we delete it
                 if (note!=null)
                 {
                     Executors.newSingleThreadExecutor().execute(() ->
                     {
-                        //we call the delete function
+                        //appel de la requete
                         NotesDao notesDao = MyDatabase.getDatabase(NotesEditActivity.this).notesDao();
                         notesDao.delete(Integer.parseInt(id));
                     });
-                    //we display a message for the user
-                    Toast.makeText(NotesEditActivity.this, "Notes deleted successfully", Toast.LENGTH_SHORT).show();
-                    //we start back to the notes list activity
+                    Toast.makeText(NotesEditActivity.this, "Note supprimée", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(NotesEditActivity.this, NotesActivity.class);
-                    //here we get the item clicked in parameters
                     intent.putExtra("city", city);
                     startActivity(intent);
                 }
-                //if the note is new we display a message
                 else
                 {
-                    Toast.makeText(NotesEditActivity.this, "Can't delete a new note", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NotesEditActivity.this, "Impossible de supprimer une nouvelle note", Toast.LENGTH_SHORT).show();
                 }
             }
 
         });
 
-        //the save button saves the notes for the city in the database
+        //sauvegarde d'une note
         button_save.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                //here we check if the title and text are not empty
+                //verification du titre et texte
                 if (String.valueOf(editText_title.getText()).equals("") || String.valueOf(editText_text.getText()).equals(""))
                 {
-                    Toast.makeText(NotesEditActivity.this, "Title and content are needed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NotesEditActivity.this, "Titre ou contenu manquant", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 Executors.newSingleThreadExecutor().execute(() ->
                 {
                     NotesDao notesDao = MyDatabase.getDatabase(NotesEditActivity.this).notesDao();
-                    //here if it's an existing note, we update it in the database
+                    //appel de la requete update
                     if (note!=null)
                     {
                         notesDao.update(Integer.parseInt(id),String.valueOf(editText_title.getText()), String.valueOf(editText_text.getText()));
                     }
-                    //if it's a new note, we insert it in the database
                     else
                     {
                         notesDao.insert(new Notes(null, city, String.valueOf(editText_title.getText()), String.valueOf(editText_text.getText())));
                     }
 
                 });
-                Toast.makeText(NotesEditActivity.this, "Note saved successfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(NotesEditActivity.this, "Note sauvegardée", Toast.LENGTH_SHORT).show();
             }
         });
     }

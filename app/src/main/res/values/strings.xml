@@ -14,4 +14,12 @@
     <string name="back">back</string>
     <string name="save">save</string>
     <string name="delete">delete</string>
+    <string name="entrer_la_note">Entrer la note</string>
+    <string name="pas_de_note_pour_cette_ville">Pas de note pour cette ville</string>
+    <string name="accueil">Accueil</string>
+    <string name="nouvelle_note">nouvelle note</string>
+    <string name="titre">Titre</string>
+    <string name="contenu">Contenu</string>
+    <string name="supprimer">supprimer</string>
+    <string name="sauvegarder">sauvegarder</string>
 </resources>
