@@ -1,4 +1,4 @@
-package com.example.assignment;
+package com.example.projetmeteo;
 
 import android.content.Intent;
 import android.os.Bundle;
