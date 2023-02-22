@@ -6,4 +6,12 @@
     <string name="ma_position">Ma position</string>
     <string name="accueil">Accueil</string>
     <string name="notes">Notes</string>
+    <string name="no_notes_found_for_this_city">no_notes_found_for_this_city</string>
+    <string name="enter_your_notes">enter_your_notes</string>
+    <string name="home">home</string>
+    <string name="new_note">new_note</string>
+    <string name="enter_your_title">enter_your_title</string>
+    <string name="back">back</string>
+    <string name="save">save</string>
+    <string name="delete">delete</string>
 </resources>
