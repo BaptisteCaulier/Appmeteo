@@ -239,7 +239,9 @@ public class CityActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                Toast.makeText(CityActivity.this, "Ouverture des notes", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(CityActivity.this, NotesActivity.class);
+                intent.putExtra("city", String.valueOf(textView_city.getText()));
+                startActivity(intent);
             }
         });
     }

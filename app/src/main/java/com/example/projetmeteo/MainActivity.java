@@ -32,6 +32,11 @@ public class MainActivity extends AppCompatActivity
     String[] states = {"Ile-de-France", "Berlin", "California", "Larnaka", "Madrid", "Buenos Aires", "Queensland", "Alberta", "Nicosia", "Bavaria", "England", "Hauts-de-France", "Tokyo", "Beijing", "Mexico City", "Bremen", "Scotland", "New York", "Valencia", "Lublin", "Antalya", "Diekirch", "Nouvelle-Aquitaine", "Pafos", "Limpopo", "Dolenjska", "Zagreb", "Delhi", "Seoul", "Texas", "Victoria", "Quebec", "Akita", "Fujian", "Haryana", "Daegu"};
     String[] cities = {"Paris", "Berlin", "Los Angeles", "Larnaca", "Madrid", "Buenos Aires", "Brisbane", "Brooks", "Nicosia", "Munich", "London", "Calais", "Tokyo", "Beijing", "Mexico City", "Bremen", "Edinburgh", "New York City", "Valencia", "Lublin", "Antalya", "Diekirch", "Bordeaux", "Paphos", "Lephalale", "Kromberk", "Zagreb", "Delhi", "Seoul", "Dallas", "Melbourne", "Montreal", "Hiyama", "Ximei", "Palwal", "Daegu"};
 
+    public void showToast(final String toast)
+    {
+        runOnUiThread(() -> Toast.makeText(MainActivity.this, toast, Toast.LENGTH_SHORT).show());
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -76,6 +81,45 @@ public class MainActivity extends AppCompatActivity
                 //on garde l'item cliqué en paramètre
                 intent.putExtra("item", String.valueOf(items.get(i)));
                 startActivity(intent);
+            }
+        });
+
+        //Action quand on reste appuyé sur une ville
+        citiesListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l)
+            {
+                //when we long click on an item, it adds or removes it from the favorites
+                Executors.newSingleThreadExecutor().execute(() ->
+                {
+                    //we get the item clicked
+                    String temp = String.valueOf(items.get(i));
+                    for (int k = 0; k < cities.length; k++)
+                    {
+                        //as the item contains the country and the city, we loop over the city array to get only the city
+                        if (temp.contains(cities[k]))
+                        {
+                            temp=cities[k];
+                            break;
+                        }
+                    }
+
+                    FavoritesDao favoritesDao = MyDatabase.getDatabase(MainActivity.this).favoritesDao();
+                    //here we add or remove the city from the favorites
+                    if (favoritesDao.getFavorite(temp)==0)
+                    {
+                        favoritesDao.update_favorites(temp,1);
+                        showToast("Ville ajoutée aux favories");
+                    }
+                    else
+                    {
+                        favoritesDao.update_favorites(temp,0);
+                        showToast("Ville enlevée des favoris");
+                    }
+
+                    runOnUiThread(() -> citiesArrayAdapter.notifyDataSetChanged());
+                });
+                return true;
             }
         });
 
@@ -146,6 +190,43 @@ public class MainActivity extends AppCompatActivity
                 for (int i = 0; i < countries.length; i++) {
                     items.add(copy[i] + ", " + cities[keys[i]]);
                 }
+            }
+        });
+
+        //action quand on appuie sur favoris
+        favorites.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                citiesListView.setAdapter(null);
+                items.clear();
+                citiesListView.setAdapter(citiesArrayAdapter);
+
+                Executors.newSingleThreadExecutor().execute(() ->
+                {
+                    //on recupere les villes favories
+                    FavoritesDao favoritesDao = MyDatabase.getDatabase(MainActivity.this).favoritesDao();
+                    List<Favorites> temp = favoritesDao.getAll(1);
+                    if (temp.isEmpty())
+                    {
+                        showToast("No favorites ! Add a city to favorites by holding it in the list");
+                    }
+                    else
+                    {
+                        for (int i = 0; i < temp.size(); i++)
+                        {
+                            for (int j = 0; j < countries.length; j++)
+                            {
+                                //on affiche
+                                if (cities[j].equals(temp.get(i).getCity()))
+                                {
+                                    items.add(temp.get(i).getCity() + ", " + countries[j]);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    runOnUiThread(() -> citiesArrayAdapter.notifyDataSetChanged());
+                });
             }
         });
 
