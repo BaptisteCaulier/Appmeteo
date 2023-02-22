@@ -63,7 +63,7 @@
         android:id="@+id/home"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:text="@string/accueil"
+        android:text="@string/acceuil"
         android:textSize="15sp"
         android:layout_marginTop="10dp"
         app:layout_constraintLeft_toRightOf="@id/left_space"
