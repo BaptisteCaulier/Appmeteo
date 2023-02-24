@@ -28,9 +28,9 @@ public class MainActivity extends AppCompatActivity
     private ArrayAdapter citiesArrayAdapter;
 
     //tableaux pour les pays, etats et villes
-    String[] countries = {"France", "Germany", "USA", "Spain", "Australia", "Canada", "Cyprus", "Germany", "United Kingdom", "France", "Japan", "China", "Mexico", "Germany", "United Kingdom", "USA", "Spain", "Poland", "Turkey", "Luxembourg", "France", "Cyprus", "South Africa", "Slovenia", "Croatia", "India", "South Korea", "USA", "Australia", "Canada", "Japan", "China", "India", "South Korea"};
-    String[] states = {"Ile-de-France", "Berlin", "California", "Madrid", "Queensland", "Alberta", "Nicosia", "Bavaria", "England", "Hauts-de-France", "Tokyo", "Beijing", "Mexico City", "Bremen", "Scotland", "New York", "Valencia", "Lublin", "Antalya", "Diekirch", "Nouvelle-Aquitaine", "Pafos", "Limpopo", "Dolenjska", "Zagreb", "Delhi", "Seoul", "Texas", "Victoria", "Quebec", "Akita", "Fujian", "Haryana", "Daegu"};
-    String[] cities = {"Paris", "Berlin", "Los Angeles", "Madrid", "Brisbane", "Brooks", "Nicosia", "Munich", "London", "Calais", "Tokyo", "Beijing", "Mexico City", "Bremen", "Edinburgh", "New York City", "Valencia", "Lublin", "Antalya", "Diekirch", "Bordeaux", "Paphos", "Lephalale", "Kromberk", "Zagreb", "Delhi", "Seoul", "Dallas", "Melbourne", "Montreal", "Hiyama", "Ximei", "Palwal", "Daegu"};
+    String[] countries = {"France", "Germany", "USA", "Spain", "Australia", "Canada", "Cyprus", "Germany", "United Kingdom", "France", "Japan", "China", "Mexico"};
+    String[] states = {"Ile-de-France", "Berlin", "California", "Madrid", "Queensland", "Alberta", "Nicosia", "Bavaria", "England", "Hauts-de-France", "Tokyo", "Beijing", "Mexico City"};
+    String[] cities = {"Paris", "Berlin", "Los Angeles", "Madrid", "Brisbane", "Brooks", "Nicosia", "Munich", "London", "Calais", "Tokyo", "Beijing", "Mexico City"};
 
     public void showToast(final String toast)
     {

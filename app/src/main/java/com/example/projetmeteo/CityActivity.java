@@ -43,10 +43,10 @@ public class CityActivity extends AppCompatActivity
     private Button button_home;
 
     //tableaux pour les pays, etats et villes
-    String [] countries = {"France","Germany","USA","Cyprus","Spain","Argentina","Australia","Canada","Cyprus","Germany","United Kingdom","France","Japan","China","Mexico","Germany","United Kingdom","USA","Spain","Poland","Turkey","Luxembourg","France","Cyprus","South Africa","Slovenia","Croatia","India","South Korea","USA","Australia","Canada","Japan","China","India","South Korea"};
-    String [] states = {"Ile-de-France","Berlin","California","Larnaka","Madrid","Buenos Aires","Queensland","Alberta","Nicosia","Bavaria","England","Hauts-de-France","Tokyo","Beijing","Mexico City","Bremen","Scotland","New York","Valencia","Lublin","Antalya","Diekirch","Nouvelle-Aquitaine","Pafos","Limpopo","Dolenjska","Zagreb","Delhi","Seoul","Texas","Victoria","Quebec","Akita","Fujian","Haryana","Daegu"};
-    String [] cities = {"Paris","Berlin","Los Angeles","Larnaca","Madrid","Buenos Aires","Brisbane","Brooks","Nicosia","Munich","London","Calais","Tokyo","Beijing","Mexico City","Bremen","Edinburgh","New York City","Valencia","Lublin","Antalya","Diekirch","Bordeaux","Paphos","Lephalale","Kromberk","Zagreb","Delhi","Seoul","Dallas","Melbourne","Montreal","Hiyama","Ximei","Palwal","Daegu"};
-
+    String[] countries = {"France", "Germany", "USA", "Spain", "Australia", "Canada", "Cyprus", "Germany", "United Kingdom", "France", "Japan", "China", "Mexico"};
+    String[] states = {"Ile-de-France", "Berlin", "California", "Madrid", "Queensland", "Alberta", "Nicosia", "Bavaria", "England", "Hauts-de-France", "Tokyo", "Beijing", "Mexico City"};
+    String[] cities = {"Paris", "Berlin", "Los Angeles", "Madrid", "Brisbane", "Brooks", "Nicosia", "Munich", "London", "Calais", "Tokyo", "Beijing", "Mexico City"};
+    
     //variable pour recevoir la ville cliquée
     int i = 50;
 
@@ -166,15 +166,15 @@ public class CityActivity extends AppCompatActivity
                 }
                 else if (wd > 203 && wd < 248)
                 {
-                    w_direction = "SW";
+                    w_direction = "SO";
                 }
                 else if (wd > 248 && wd < 293)
                 {
-                    w_direction = "W";
+                    w_direction = "O";
                 }
                 else if (wd > 293 && wd < 338)
                 {
-                    w_direction = "NW";
+                    w_direction = "NO";
                 }
                 else
                 {
