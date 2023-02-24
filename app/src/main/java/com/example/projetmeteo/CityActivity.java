@@ -108,12 +108,12 @@ public class CityActivity extends AppCompatActivity
         //ici on regarde si on trouve la ville dans notre tableau
         if (i!=50)
         {
-            URL = "https://api.airvisual.com/v2/city?city=" + cities[i] + "&state=" + states[i] + "&country=" + countries[i] + "&key=83ecc71f-0909-4128-bef4-8be290278d12";
+            URL = "https://api.airvisual.com/v2/city?city=" + cities[i] + "&state=" + states[i] + "&country=" + countries[i] + "&key=d60111dd-edf5-4f95-9af7-23a1f9771611";
         }
         //sinon cela veut dire qu'on a appuyé sur le bouton ma position
         else
         {
-            URL = "https://api.airvisual.com/v2/nearest_city?key=83ecc71f-0909-4128-bef4-8be290278d12";
+            URL = "https://api.airvisual.com/v2/nearest_city?key=d60111dd-edf5-4f95-9af7-23a1f9771611";
         }
 
         //on utilise la bibliothèque Volley pour appeler les données de l'API
