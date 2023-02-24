@@ -46,7 +46,7 @@ public class CityActivity extends AppCompatActivity
     String[] countries = {"France", "Germany", "USA", "Spain", "Australia", "Canada", "Cyprus", "Germany", "United Kingdom", "France", "Japan", "China", "Mexico"};
     String[] states = {"Ile-de-France", "Berlin", "California", "Madrid", "Queensland", "Alberta", "Nicosia", "Bavaria", "England", "Hauts-de-France", "Tokyo", "Beijing", "Mexico City"};
     String[] cities = {"Paris", "Berlin", "Los Angeles", "Madrid", "Brisbane", "Brooks", "Nicosia", "Munich", "London", "Calais", "Tokyo", "Beijing", "Mexico City"};
-    
+
     //variable pour recevoir la ville cliquée
     int i = 50;
 
